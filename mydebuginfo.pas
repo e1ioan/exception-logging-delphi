@@ -36,6 +36,9 @@ uses
   System.SysUtils,
   JclDebug;
 
+const
+  ERR_PATH = 'd:\errors\';
+  
 procedure MyLogException(e: Exception; extraInfo: string = '');
 
 implementation
@@ -57,7 +60,7 @@ begin
     sl.Add(e.ClassName + ': ' + e.Message);
     sl.Add('----------------------------');
     JclLastExceptStackListToStrings(sl, False, True, True, False);
-    sl.SaveToFile('d:\errors\' + ExtractFileName(ParamStr(0)) + FormatDateTime('-yyyy-mm-dd-hhnnsszzz', Now) + '.txt');
+    sl.SaveToFile(IncludeTrailingPathDelimiter(ERR_PATH) + ExtractFileName(ParamStr(0)) + FormatDateTime('-yyyy-mm-dd-hhnnsszzz', Now) + '.txt');
   finally
     sl.Free;
   end;
